@@ -11,6 +11,7 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind to the server host and port
 server.bind(ADDR)
+#client would connect to a server program that's bound to the host and port
 
 # Listen for connections - max queue length => 7
 server.listen(7)
@@ -25,7 +26,6 @@ while True:
     message = 'Thanks for connecting!'.encode('utf-8')
     client.send(message)
 
+    print('Server shutting down...')
+
     client.close()
-
-print('Server shutting down...')
-
