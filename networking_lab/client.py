@@ -1,9 +1,8 @@
-from server import CHUNK_SIZE
 import socket
 import pickle
 
 CLIENT = socket.gethostname()
-PORT = 1235                           #ports until 1233 might need admin on some devices 
+PORT = 1234                        #ports until 1233 might need admin on some devices 
 ADDR = (CLIENT, PORT)
 
 
@@ -32,7 +31,7 @@ def insertion():
     insert_data = {'Date': date, 'foodid': id, 'Quantity' : qty,'Cost' : cost}
 
     msg = pickle.dumps(insert_data)
-    msg = bytes(f"{len(msg):<{CHUNK_SIZE}}", 'utf-8')+msg
+    msg = bytes(msg)
     status = client.send(msg)
     print("Status of sending: ",status)
 
@@ -50,7 +49,7 @@ def view():
     message = 'View'.encode('utf-8')
     client.send(message)
     msg = {}
-    client.recv(msg)
+    msg = client.recv(CHUNK_SIZE)
     recd = pickle.loads(msg)
     print(recd)
 
@@ -73,7 +72,7 @@ while True and cont=="Y":
     print("3. View (V)")
     print("4. Update (U)")
     print("5. Display (F)")
-    print("Type the appropriate option: ",close=" ")
+    print("Type the appropriate option: ",end=" ")
     choice = input()
 
     if choice == 'I':

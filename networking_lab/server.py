@@ -21,17 +21,11 @@ print('Server starting up.')
 print('Server address: ',ADDR)
 
 def insertion():
-    data = server.recv(CHUNK_SIZE).decode('utf-8')
-    recd = pickle.loads(data)
-    print("Values recieved: ")
-    print(recd)
-    insert_row = list(recd.values())
-    ListItems = ListItems.append(insert_row, ignore_index=True)
+    return
 
 
 def view():
-    print(ListItems)
-    client.sendall(ListItems.to_string().encode("utf-8"))
+    return
 
 def update():
     rows = len(ListItems.axes[0])
@@ -56,11 +50,6 @@ def update():
         
 
 def modify():
-    rows = len(ListItems.axes[0])
-    for index in rows:
-        ChangedValue = int(ListItems.iloc[index]["Quantity"])*int(ListItems.iloc[index]["cost"])
-        ListItems.iloc[index]["Totalcost"] = ChangedValue
-    print("Updated")
     return
 
 
@@ -71,10 +60,19 @@ while True:
 
     inp = (client.recv(CHUNK_SIZE).decode('utf-8'))
     if(inp=="I"):
-        insertion()
+        data = client.recv(CHUNK_SIZE)
+        recd = pickle.loads(data)
+        print("Values recieved: ")
+        print(recd)
+        insert_row = list(recd.values())
+        ListItems = ListItems.append(insert_row, ignore_index=True)
     
     elif(inp=="M"):
-        modify()
+        rows = len(ListItems.axes[0])
+        for index in rows:
+            ChangedValue = int(ListItems.iloc[index]["Quantity"])*int(ListItems.iloc[index]["cost"])
+            ListItems.iloc[index]["Totalcost"] = ChangedValue
+        print("Updated")
 
     elif(inp=="V"):
         view()
