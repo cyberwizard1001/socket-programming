@@ -58,7 +58,7 @@ def update():
 def modify():
     rows = len(ListItems.axes[0])
     for index in rows:
-        ChangedValue = ListItems.iloc[index]["Quantity"]*ListItems.iloc[index]["cost"]
+        ChangedValue = int(ListItems.iloc[index]["Quantity"])*int(ListItems.iloc[index]["cost"])
         ListItems.iloc[index]["Totalcost"] = ChangedValue
     print("Updated")
     return
