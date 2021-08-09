@@ -61,6 +61,15 @@ def update():
     print("Status of sending: ",status)
 
 
+def f():
+    print("Type foodid: ")
+    id = input().encode('utf-8')
+    client.send(id)
+
+    client.recv(CHUNK_SIZE)
+    msg = client.revc(CHUNK_SIZE)
+    recd = pickle.loads(msg)
+    print(recd)
 
 
 cont = "Y"

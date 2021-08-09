@@ -8,7 +8,7 @@ SERVER = socket.gethostname()
 ADDR = (SERVER,PORT)
 CHUNK_SIZE = 1024
 
-
+FORMAT = 'utf-8'
 
 ListItems = pd.read_csv("FoodBill.csv")
 
@@ -51,7 +51,7 @@ def update():
 
 def modify():
     return
-
+    
 
 
 while True: 
